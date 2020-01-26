@@ -79,6 +79,10 @@ var New = func(next buffalo.Handler) buffalo.Handler {
 			}
 			// Save the new real token in session
 			c.Session().Set(tokenKey, realToken)
+			err = c.Session().Save()
+			if err != nil {
+				return err
+			}
 		} else {
 			realToken = rawRealToken.([]byte)
 		}
